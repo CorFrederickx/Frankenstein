@@ -26,8 +26,6 @@
                                 <li>Number of corrections by Mary Shelley: 
                                     <xsl:value-of select="count(//tei:del[@hand = '#MWS']|//tei:add[@hand = '#MWS' ])" />
                                 </li>
-                                <li>Number of corrections by one of these two, but unsure: 
-                                </li>
                                 <li>Number of words on the manuscript page:
                                     <xsl:call-template name="Wordcount"/>
                                 </li>

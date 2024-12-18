@@ -88,7 +88,7 @@
         </u>
     </xsl:template>
 
-    <xsl:template match="tei:add[@rend = 'overwritten']"> <--! hoe wil ik dit visualiseren? -->
+    <xsl:template match="tei:add[@rend = 'overwritten']"> <--! hoe wil ik dit visualiseren? strikethrough html -->
         <u>
             <xsl:apply-templates/>
         </u>
