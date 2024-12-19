@@ -88,10 +88,42 @@
         </u>
     </xsl:template>
 
-    <xsl:template match="tei:add[@rend = 'overwritten']"> <--! hoe wil ik dit visualiseren? strikethrough html -->
+    <xsl:template match="tei:add[@rend = 'overwritten']"> <!-- hoe wil ik dit visualiseren? strikethrough html -->
         <u>
             <xsl:apply-templates/>
         </u>
     </xsl:template>
+
+    <!-- the circled page number on the manuscript, <style> van page-number en circled nog specifiëren in CSS-->
+    <xsl:template match="tei:hi[@rend='circled']">
+        <div class="page-number">
+            <span class="circled">
+                <xsl:apply-templates/>
+            </span>
+        </div>
+    </xsl:template>
+
+
+    <!--the next part is only valid for the index.html file??? change the values>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Translator</th>
+        </tr>
+        <xsl:for-each select="/shortlist/book">
+            <tr>
+                <td><xsl:value-of select="title"/></td>
+                <td><xsl:value-of select="author"/></td>
+                <td><xsl:value-of select="translator"/></td>
+            </tr>
+        </xsl:for-each>
+    </table>
+    <style>
+        table, th, td {
+        border:1px solid black;
+        }
+    </style>
+
     
 </xsl:stylesheet>
