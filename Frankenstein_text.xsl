@@ -40,7 +40,7 @@
     </xsl:template>
     
     <xsl:template match="tei:div">
-        <div class="#MWS"><xsl:apply-templates/></div>
+        <div class="x#MWS"><xsl:apply-templates/></div>
     </xsl:template>
     
     <xsl:template match="tei:p">
@@ -95,11 +95,9 @@
     </xsl:template>
 
     <!-- the circled page number on the manuscript, <style> van page-number en circled nog specifiëren in CSS-->
-    <xsl:template match="tei:hi[@rend='circled']">
+    <xsl:template match="tei:metamark[@function='pagenumber']">
         <div class="page-number">
-            <span class="circled">
                 <xsl:apply-templates/>
-            </span>
         </div>
     </xsl:template>
 

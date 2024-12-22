@@ -96,22 +96,37 @@ function documentLoader() {
   // Initial document load
   documentLoader();
   statsLoader();
+
+  
   // Event listener for sel1 change
   function selectHand(event) {
   var visible_mary = document.getElementsByClassName('#MWS');
   var visible_percy = document.getElementsByClassName('#PBS');
+  var textContainer = document.getElementById("text");
+ 
+
   // Convert the HTMLCollection to an array for forEach compatibility
   var MaryArray = Array.from(visible_mary);
   var PercyArray = Array.from(visible_percy);
     if (event.target.value == 'both') {
-    //write an forEach() method that shows all the text written and modified by both hand (in black?). The forEach() method of Array instances executes a provided function once for each array element.
-     
+    //write an forEach() method that shows all the text written and modified by both hands (in black?). The forEach() method of Array instances executes a provided function once for each array element.
+
+    textContainer.classList.remove("markSingle");
+    PercyArray.forEach((element) => element.classList.remove("markPercy"));
+    MaryArray.forEach((element) => element.classList.remove("markMary"));
+
     } else if (event.target.value == 'Mary') {
      //write an forEach() method that shows all the text written and modified by Mary in a different color (or highlight it) and the text by Percy in black. 
-     
+     textContainer.classList.add("markSingle");
+     PercyArray.forEach((element) => element.classList.remove("markPercy"));
+     MaryArray.forEach((element) => element.classList.add("markMary"));
+
     } else {
      //write an forEach() method that shows all the text written and modified by Percy in a different color (or highlight it) and the text by Mary in black.
-    
+     textContainer.classList.add("markSingle");
+     PercyArray.forEach((element) => element.classList.add("markPercy"));
+     MaryArray.forEach((element) => element.classList.remove("markMary"));
+
     }
   }
 // write another function that will toggle the display of the deletions by clicking on a button
@@ -120,4 +135,5 @@ function documentLoader() {
 
 function deletionToggler() {
   getElementsByClassName
+  /* checkbox? */
 }
