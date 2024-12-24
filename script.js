@@ -134,6 +134,21 @@ function documentLoader() {
 
 
 function deletionToggler() {
-  getElementsByClassName
-  /* checkbox? */
+  // first get all the <del> elements in the document
+  const deletions = document.getElementsByTagName("del");
+  const additions = document.getElementsByTagName("add")
+  
+  // for loop that iterates over every deletion, checks if it is visible or not and alters its state. If it hides deletions, it should remove the styling from the additions
+  for (let i = 0; i < deletions.length; i++) {
+    const del = deletions[i];
+    if (del.style.display === "none") {
+      del.style.display = "inline"; 
+    } else {
+      del.style.display = "none";
+      for (let j = 0; j < additions.length; j++) {
+        const add = additions[j];
+        add.style.all = "unset"; // Unset all styles applied to additions (by CSS or XSL) Werkt niet, class='supraAdd' blijft toegepast....
+    }
+  }
+}
 }

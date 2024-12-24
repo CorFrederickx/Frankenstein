@@ -40,9 +40,18 @@
               <a class="dropdown-item" href="25v.html">25v</a>
             </div>
           </li>
-          <li><a class="nav-link " >Previous</a></li>
-          <li><a class="nav-link " >Next</a></li>
-          <li><a class="nav-link " onclick="deletionToggler()">Toggle Deletions</a></li>
+          <!--How can I move these three buttons to the right side of the navigation bar? This does not work-->
+          <li class="ml-auto"><a class="nav-link" >Previous</a></li>
+          <li class="ml-auto"><a class="nav-link" >Next</a></li>
+          <!--I want to make the Toggle Deletions button into a button that can be checked on and of. Looked up checkboxes in the bootstrap documentation-->
+          <!--Ik heb een checkbox maar hij ziet er niet uit-->
+          <li>
+            <div class="navbar-nav" class="xinput-group-text">
+                <input type="checkbox">
+                    <a class="nav-link" onclick="deletionToggler()">Toggle Deletions</a></li>
+                </div>
+              </div>
+            </div>
         </ul>
       </div>
     </nav>
@@ -72,7 +81,3 @@
   </body>
 </html>
 
-
-
-
-<button type="button" onclick="deletionToggler()">Toggle Deletions</button>

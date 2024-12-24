@@ -94,7 +94,7 @@
         </u>
     </xsl:template>
 
-    <!-- the circled page number on the manuscript, <style> van page-number en circled nog specifiëren in CSS-->
+    <!-- the circled page number on the manuscript-->
     <xsl:template match="tei:metamark[@function='pagenumber']">
         <div class="page-number">
                 <xsl:apply-templates/>

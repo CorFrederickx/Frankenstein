@@ -33,15 +33,10 @@ p {
 }
 
 .supraAdd {
-    /*vertical-align: super;
-    font-size: smaller;
-    */
     vertical-align: baseline;
     position: relative;
     top: -0.3em;
     font-size: smaller;
-
-    
 }
 
 
