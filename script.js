@@ -152,3 +152,64 @@ function deletionToggler() {
   }
 }
 }
+
+function buildFolioTable() {
+  const folioTable = document.querySelector('.folio-table'); // finds the HTML element with the class .folio-table
+  const ddi = document.querySelectorAll('#navbarNavDropdown .dropdown-item'); // retrieves all elements inside the #navbarNavDropdown element that have the class .dropdown-item and puts them in a list
+
+  // iterate over each dropdown item 
+  ddi.forEach((item) => {
+      let tr = document.createElement('tr'); //create a table row for each item
+      tr.innerHTML = `<td><a href="${item.href}">${item.innerText}</a></td>`; //add a link to the row
+      folioTable.appendChild(tr); //add the row to the table
+  });
+}
+
+
+// function to create previous and next buttons:
+
+// Define the list of pages
+const pages = [
+  { name: "Home", link: "home.html" },
+  { name: "About", link: "about.html" },
+  { name: "21r", link: "21r.html"},
+  { name: "21v", link: "21v.html"},
+  { name: "22r", link: "22r.html"},
+  { name: "22v", link: "22v.html"},
+  { name: "23r", link: "23r.html"},
+  { name: "23v", link: "23v.html"},
+  { name: "24r", link: "24r.html"},
+  { name: "24v", link: "24v.html"},
+  { name: "25r", link: "25r.html"},
+  { name: "25v", link: "25v.html"},
+];
+
+// Identify the current page from the URL
+const currentPage = window.location.pathname.split('/').pop(); // Extracts the last segment from the current URL path (the file name)
+const currentIndex = pages.findIndex(page => page.link === currentPage); // Iterates over the pages array to find the first element that satisfies the condition, namely that link and the extracted currentpage are the same
+
+// Determine Previous and Next pages (and make sure there even are previous and next pages)
+const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : null;
+const nextPage = currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;
+
+// Get the navigation elements
+const prevLink = document.getElementById("prevLink");
+const nextLink = document.getElementById("nextLink");
+
+// Update "Previous" link
+if (prevPage) {
+  prevLink.href = prevPage.link; // Set the link
+  prevLink.classList.remove("disabled"); // Ensure it's clickable
+} else {
+  prevLink.href = "#"; // Prevent navigation if no previous page
+  prevLink.classList.add("disabled"); // Add a disabled style if needed
+}
+
+// Update "Next" link
+if (nextPage) {
+  nextLink.href = nextPage.link; // Set the link
+  nextLink.classList.remove("disabled"); // Ensure it's clickable
+} else {
+  nextLink.href = "#"; // Prevent navigation if no next page
+  nextLink.classList.add("disabled"); // Add a disabled style if needed
+}

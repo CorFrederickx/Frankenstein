@@ -40,7 +40,7 @@
     </xsl:template>
     
     <xsl:template match="tei:div">
-        <div class="x#MWS"><xsl:apply-templates/></div>
+        <div class="#MWS"><xsl:apply-templates/></div>
     </xsl:template>
     
     <xsl:template match="tei:p">
@@ -101,27 +101,3 @@
         </div>
     </xsl:template>
 
-
-    <!--the next part is only valid for the index.html file??? change the values>
-    <table>
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Translator</th>
-        </tr>
-        <xsl:for-each select="/shortlist/book">
-            <tr>
-                <td><xsl:value-of select="title"/></td>
-                <td><xsl:value-of select="author"/></td>
-                <td><xsl:value-of select="translator"/></td>
-            </tr>
-        </xsl:for-each>
-    </table>
-    <style>
-        table, th, td {
-        border:1px solid black;
-        }
-    </style>
-
-    
-</xsl:stylesheet>

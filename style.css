@@ -11,7 +11,7 @@ img {
 }
 
 p {
-    text-indent: 10px;
+    text-indent: 0px;
 }
 
 .row {
@@ -60,11 +60,16 @@ p {
     gap: 10px; /* Add some space between the images */
 }
 
+
 .image_container img {
     width: 400px; /* Set a fixed width for both images */
     height: 489px; /* Maintain aspect ratio */
     object-fit: cover; /* Ensure the image fills its box if needed */
 }
+
+.image_container img[src="Sparky_Frankenstein.webp"] {
+    object-fit: contain; /* Ensure the full Sparky image is displayed without cropping */
+ }
 
 .overwritten {}
 
@@ -85,4 +90,14 @@ body:has(option[value="Mary"]:selected) [class="#MWS"] {
 .markPercy{
     color: black
 }
+
+
+/* the style of the footer with the license */
+.license-note { 
+    margin: 2.5em;
+    padding: .5em;
+    font-style:italic;
+    font-size: small;
+    text-align: center;
+ }
 
