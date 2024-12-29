@@ -99,31 +99,31 @@ function documentLoader() {
 
   
   // Event listener for sel1 change
+  // added an extra variable for all text
   function selectHand(event) {
   var visible_mary = document.getElementsByClassName('#MWS');
   var visible_percy = document.getElementsByClassName('#PBS');
   var textContainer = document.getElementById("text");
  
-
   // Convert the HTMLCollection to an array for forEach compatibility
   var MaryArray = Array.from(visible_mary);
   var PercyArray = Array.from(visible_percy);
-    if (event.target.value == 'both') {
-    //write an forEach() method that shows all the text written and modified by both hands (in black?). The forEach() method of Array instances executes a provided function once for each array element.
+  //write an forEach() method that shows all the text written and modified by both hands (in black?). The forEach() method of Array instances executes a provided function once for each array element.
 
-    textContainer.classList.remove("markSingle");
+    if (event.target.value == 'both') {
+    textContainer.classList.remove("markRest");
     PercyArray.forEach((element) => element.classList.remove("markPercy"));
     MaryArray.forEach((element) => element.classList.remove("markMary"));
 
     } else if (event.target.value == 'Mary') {
      //write an forEach() method that shows all the text written and modified by Mary in a different color (or highlight it) and the text by Percy in black. 
-     textContainer.classList.add("markSingle");
+     textContainer.classList.add("markRest");
      PercyArray.forEach((element) => element.classList.remove("markPercy"));
      MaryArray.forEach((element) => element.classList.add("markMary"));
 
     } else {
      //write an forEach() method that shows all the text written and modified by Percy in a different color (or highlight it) and the text by Mary in black.
-     textContainer.classList.add("markSingle");
+     textContainer.classList.add("markRest");
      PercyArray.forEach((element) => element.classList.add("markPercy"));
      MaryArray.forEach((element) => element.classList.remove("markMary"));
 
@@ -132,26 +132,26 @@ function documentLoader() {
 // write another function that will toggle the display of the deletions by clicking on a button
 // EXTRA: write a function that will display the text as a reading text by clicking on a button or another dropdown list, meaning that all the deletions are removed and that the additions are shown inline (not in superscript)
 
+// I combined a classic for loop with a classlist and forEach... but it works and now I don't want to touch it.
 
 function deletionToggler() {
-  // first get all the <del> elements in the document
+  // first get all the <del> elements in the document, and all the additions that are put in superscript
   const deletions = document.getElementsByTagName("del");
-  const additions = document.getElementsByTagName("add")
+  const additions = document.querySelectorAll('.supraAdd');
   
   // for loop that iterates over every deletion, checks if it is visible or not and alters its state. If it hides deletions, it should remove the styling from the additions
   for (let i = 0; i < deletions.length; i++) {
     const del = deletions[i];
     if (del.style.display === "none") {
-      del.style.display = "inline"; 
+      del.style.display = "inline";
+      additions.forEach((item) => item.classList.remove('show-normal'));
     } else {
       del.style.display = "none";
-      for (let j = 0; j < additions.length; j++) {
-        const add = additions[j];
-        add.style.all = "unset"; // Unset all styles applied to additions (by CSS or XSL) Werkt niet, class='supraAdd' blijft toegepast....
+      additions.forEach((item) => item.classList.add('show-normal'));
     }
   }
 }
-}
+
 
 function buildFolioTable() {
   const folioTable = document.querySelector('.folio-table'); // finds the HTML element with the class .folio-table
@@ -170,8 +170,6 @@ function buildFolioTable() {
 
 // Define the list of pages
 const pages = [
-  { name: "Home", link: "home.html" },
-  { name: "About", link: "about.html" },
   { name: "21r", link: "21r.html"},
   { name: "21v", link: "21v.html"},
   { name: "22r", link: "22r.html"},
@@ -213,3 +211,4 @@ if (nextPage) {
   nextLink.href = "#"; // Prevent navigation if no next page
   nextLink.classList.add("disabled"); // Add a disabled style if needed
 }
+

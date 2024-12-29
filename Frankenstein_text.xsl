@@ -43,17 +43,6 @@
         <div class="#MWS"><xsl:apply-templates/></div>
     </xsl:template>
     
-    <xsl:template match="tei:p">
-        <p><xsl:apply-templates/></p>
-    </xsl:template>
-
-  
-    <xsl:template match="tei:add[@place = 'marginleft']">
-        <span class="marginAdd">
-            <xsl:apply-templates/>
-        </span>
-    </xsl:template>
-    
     <xsl:template match="tei:del">
         <del>
             <xsl:attribute name="class">
@@ -62,6 +51,24 @@
             <xsl:apply-templates/>
         </del>
     </xsl:template>
+
+    <!--important to specify this class to make the highlighting function work-->
+    <xsl:template match="tei:add[@hand='#PBS']">
+    <span class="#PBS">
+        <xsl:apply-templates/>
+    </span>
+    </xsl:template>
+    
+    <xsl:template match="tei:p">
+        <p><xsl:apply-templates/></p>
+    </xsl:template>
+
+    <xsl:template match="tei:add[@place = 'marginleft']">
+        <span class="marginAdd">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    
     
     <!-- all the supralinear additions are given in a span with the class supraAdd, make sure to put this class in superscript in the CSS file, -->
     <xsl:template match="tei:add[@place = 'supralinear']">
