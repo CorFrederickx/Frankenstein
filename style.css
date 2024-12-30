@@ -109,3 +109,42 @@ body:has(option[value="Mary"]:selected) [class="#MWS"] {
     font-family: "Frankenfont";
     src: url("frankenwiniefont.ttf") format("opentype");
 }
+
+/* elements styled in f.font */
+h1, h2, h4,
+nav .navbar-brand,
+.nav-item .dropdown-item,
+figcaption,
+.frankenstein,
+.page-number {
+    font-family: 'Frankenfont', sans-serif;
+    letter-spacing: 0.1em;
+    color: var(--blood-red) ;
+    text-shadow: var(--light-red) 1px 0 10px;
+}
+nav .navbar-brand {
+    font-size: 200%;
+}
+h1 {
+    font-size: 4em;
+    margin-top: .2em;
+}
+h2 {
+    font-size: 3em;
+}
+
+
+/* horizontal toolbar */
+#stats + .form-group {
+    background-color:var(--blood-red);
+    padding: .5em 0;
+    text-align: center;
+    margin-right: 15px;  /* align with width of the #text block */
+    border-radius: 4px;
+    align-items: center; /* Vertical alignment, does not seem to work... */
+}
+/*allow for more buttons on the horizontal toolbar*/
+#sel-hand {
+    display:inline-block;
+    width:auto;
+}

@@ -1,6 +1,15 @@
 // Declare variables for getting the xml file for the XSL transformation (folio_xml) and to load the image in IIIF on the page in question (number).
+
+
 let tei = document.getElementById("folio");
-let tei_xml = tei.innerHTML;
+
+if (tei==null) {
+    //aha, this is the home page
+    buildFolioTable();
+    stop();
+}
+
+let tei_xml = tei.innerHTML; //only exist in the folio html pages
 let extension = ".xml";
 let folio_xml = tei_xml.concat(extension);
 let page = document.getElementById("page");
@@ -96,7 +105,7 @@ function documentLoader() {
   // Initial document load
   documentLoader();
   statsLoader();
-
+  
   
   // Event listener for sel1 change
   // added an extra variable for all text
@@ -165,8 +174,8 @@ function buildFolioTable() {
   });
 }
 
-
 // function to create previous and next buttons:
+
 
 // Define the list of pages
 const pages = [

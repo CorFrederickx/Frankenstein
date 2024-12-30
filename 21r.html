@@ -40,18 +40,6 @@
               <a class="dropdown-item" href="25v.html">25v</a>
             </div>
           </li>
-          <!--How can I move these three buttons to the right side of the navigation bar? This does not work. Maybe because these are not buttons?-->
-          <li class="ml-auto"><a class="nav-link" id="prevLink">Previous</a></li>
-          <li class="ml-auto"><a class="nav-link" id="nextLink">Next</a></li>
-          <!--I want to make the Toggle Deletions button into a button that can be checked on and of. Looked up checkboxes in the bootstrap documentation-->
-          <!--Ik heb een checkbox maar hij ziet er niet uit-->
-          <li>
-            <div class="navbar-nav" class="xinput-group-text">
-                <input type="checkbox">
-                    <a class="nav-link" onclick="deletionToggler()">Toggle Deletions</a></li>
-                </div>
-              </div>
-            </div>
         </ul>
       </div>
     </nav>
@@ -60,12 +48,17 @@
       <span style="visibility:hidden" id='page'>44</span>
       <h2 id='folio'>21r</h2> <!-- you can style this h2 element differently, but you should keep the id="folio" and the elements value *unchanged* -->
       <div id="stats"></div>
-      <div class="form-group">
-        <select class="form-control" id="sel-hand" onChange="selectHand(event)">
-          <option value="both">Both Hands</option>
-          <option value="Mary">Mary Shelley's Hand Highlighted</option>
-          <option value="Percy">Percy Shelley's Hand Highlighted</option>
-        </select>
+      <div class="form-group align-items-center">
+          <select class="form-control" id="sel-hand" onChange="selectHand(event)">
+            <option value="both">Both Hands</option>
+            <option value="Mary">Mary Shelley's Hand Highlighted</option>
+            <option value="Percy">Percy Shelley's Hand Highlighted</option>
+          </select>
+          <label class="btn btn-light">
+            <input type="checkbox" onchange="deletionToggler()"> Toggle Deletions
+          </label>
+          <a class="btn btn-light" id="prevLink" > &lt; </a> <!--&lt and &gt show the buttons as < and > for previous and next-->
+          <a class="btn btn-light" id="nextLink" > &gt; </a>
       </div>
       <div class="row">
         <div class="col-5">   
