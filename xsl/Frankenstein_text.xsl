@@ -89,8 +89,8 @@
     
     <!-- all the supralinear additions are given in a span with the class supraAdd, make sure to put this class in superscript in the CSS file, -->
     <xsl:template match="tei:add[@place = 'supralinear']">
-        <span class="supraAdd">
-            <xsl:apply-templates/>
+        <span class="supraAdd {@hand}">
+             <xsl:apply-templates/>
         </span>
     </xsl:template>
     

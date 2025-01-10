@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
 
     <title>Frankenstein Edition</title>
-    <link href="style.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -28,25 +28,24 @@
               Pages
             </a>
             <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink"> <!--dropdown-menu-dark not supported in bootstrap 4.3, made own CSS class-->
-              <a class="dropdown-item" href="21r.html">21r</a>
-              <a class="dropdown-item" href="21v.html">21v</a>
-              <a class="dropdown-item" href="22r.html">22r</a>
-              <a class="dropdown-item" href="22v.html">22v</a>
-              <a class="dropdown-item" href="23r.html">23r</a>
-              <a class="dropdown-item" href="23v.html">23v</a>
-              <a class="dropdown-item" href="24r.html">24r</a>
-              <a class="dropdown-item" href="24v.html">24v</a>
-              <a class="dropdown-item" href="25r.html">25r</a>
-              <a class="dropdown-item" href="25v.html">25v</a>
+              <a class="dropdown-item" href="index.html?folio=21r&page=44">21r</a>
+              <a class="dropdown-item" href="index.html?folio=21v&page=45">21v</a>
+              <a class="dropdown-item" href="index.html?folio=22r&page=46">22r</a>
+              <a class="dropdown-item" href="index.html?folio=22v&page=47">22v</a>
+              <a class="dropdown-item" href="index.html?folio=23r&page=47">23r</a>
+              <a class="dropdown-item" href="index.html?folio=23v&page=49">23v</a>
+              <a class="dropdown-item" href="index.html?folio=24r&page=49">24r</a>
+              <a class="dropdown-item" href="index.html?folio=24v&page=51">24v</a>
+              <a class="dropdown-item" href="index.html?folio=25r&page=52">25r</a>
+              <a class="dropdown-item" href="index.html?folio=25v&page=53">25v</a>
             </div>
           </li>
         </ul>
       </div>
     </nav>
-    <div class="container-fluid">
-      <br/>
+    <!--this is the index page-->
+    <div class="container-fluid active">
       <h2>FRANKENSTEIN - Mary Wollstonecraft Shelley</h2>
-      <br/>
       <div class="row">
         <div class="col-4">   
           <p>Welcome to the mini digital edition of chapter 7 of Mary Shelley's <i class="frankenstein">Frankenstein</i>. Made by <i class="frankenstein">Cor Frederickx</i> as a project for the Text as Data course 2024-2025, taught at the University of Antwerp.</p>
@@ -77,46 +76,75 @@
         <!-- images mary shelley and percy shelley (and their dog Sparky) -->
         <div class="col-8">
           <div class="row image_container">
-            <div class="col-3">
-              <img src="Mary_Wollstonecraft_Shelley.jpg" alt="Mary Wollstonecraft Shelley"></img>
+            <div class="col">
+              <img src="images/Mary_Wollstonecraft_Shelley.jpg" alt="Mary Wollstonecraft Shelley"></img>
               <figcaption>Mary Wollstonecraft Shelley</figcaption>
             </div>
-            <div class="col-3">
-              <img src="Percy_Bysshe_Shelley.jpg" alt="Percy Bysshe Shelley"></img>
+            <div class="col">
+              <img src="images/Percy_Bysshe_Shelley.jpg" alt="Percy Bysshe Shelley"></img>
               <figcaption>Percy Bysshe Shelley</figcaption>
             </div>
-            <div class="col-3">
-              <img src="Sparky_Frankenstein.webp" alt="The dog Sparky"></img>
+            <div class="col">
+              <img class="img-contain" src="images/Sparky_Frankenstein.webp" alt="The dog Sparky"></img>
               <figcaption>And their dog Sparky</figcaption>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- the licence note-->
-      <footer class="license-note">
-        <p>
-          This edition is licensed under a 
-          <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">
-            Creative Commons Attribution-NonCommercial 4.0 International License
-          </a>.
-          <br/>
-          <br/>
-          The <a href="https://www.dafont.com/frankenwiniefont.font">frankenwinie font</a> is a is an amateur design and is free for personal use.
-          <br/>
-          Sparky starred in
-          <a href="https://en.wikipedia.org/wiki/Frankenweenie_(2012_film)" title="wikipedia: Frankenweenie (2012 film)">Frankenweenie</a>
-          as Victor Frankenstein's resurrected pet. Image from <a href="https://hero.fandom.com/wiki/Sparky_(Frankenweenie)">hero.fandom.com</a>
-          <br/>
-      <p>
-        </p>
-      </footer>
+      
     </div>
+    <!-- let's try to change the code so that we would not need separate HTML files for each page -->
+    <div class="container-fluid">
+      <h1>Frankenstein Volume I Draft in Chapter Sequence</h1>
+      <span style="visibility:hidden" id='page'>44</span>
+      <h2 id='folio'>21r</h2> <!-- you can style this h2 element differently, but you should keep the id="folio" and the elements value *unchanged* -->
+      <div id="stats"></div>
+      <div class="form-group align-items-center">
+          <select class="form-control" id="sel-hand" onChange="selectHand(event)">
+            <option value="both">Both Hands</option>
+            <option value="Mary">Mary Shelley's Hand Highlighted</option>
+            <option value="Percy">Percy Shelley's Hand Highlighted</option>
+          </select>
+
+          <label class="btn btn-light">
+            <input type="checkbox" onchange="deletionToggler()"> Toggle Deletions
+          </label>
+
+          <a class="btn btn-light" id="prevLink" > &lt; </a> <!--&lt and &gt show the buttons as < and > for previous and next-->
+          <a class="btn btn-light" id="nextLink" > &gt; </a>
+      </div>
+      <div class="row">
+        <div class="col-5">   
+            <div id="my-mirador"></div>
+        </div>
+        <div class="col-7" id="text"></div>
+      </div>
+    </div>
+
+    <!-- the licence note-->
+    <footer class="license-note">
+      <p>
+        This edition is licensed under a 
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">
+          Creative Commons Attribution-NonCommercial 4.0 International License
+        </a>.
+        <br/>
+        <br/>
+        The <a href="https://www.dafont.com/frankenwiniefont.font">frankenwinie font</a> is a is an amateur design and is free for personal use.
+        <br/>
+        Sparky starred in
+        <a href="https://en.wikipedia.org/wiki/Frankenweenie_(2012_film)" title="wikipedia: Frankenweenie (2012 film)">Frankenweenie</a>
+        as Victor Frankenstein's resurrected pet. Image from <a href="https://hero.fandom.com/wiki/Sparky_(Frankenweenie)">hero.fandom.com</a>
+        <br/>
+    <p>
+      </p>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
     
   </body>
 </html>

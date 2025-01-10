@@ -28,6 +28,10 @@ img {
     max-width: 100%;
 }
 
+a, a:hover, a:active { /* make all links frankenweenie green */
+    color:#6baf3d;
+}
+
 p {
     text-indent: 0px;
 }
@@ -72,13 +76,13 @@ p {
     top: 10px;
     right: 10px;
     text-align: center;
-    border: 2px solid black;
+    border: 2px solid #e0e0e0;
     border-radius: 50%;
-    padding: 5px;
+    padding: 0.25em;
     min-width: 2em;
     height: 2em;
-    line-height: 1em;
-    font-size: 14px;
+    line-height: 1.25em;
+    font-size: 1.5em;
 }
 
 /* arrangement of images on index page*/
@@ -94,20 +98,24 @@ p {
     object-fit: cover;
 }
 
-.image_container img[src="Sparky_Frankenstein.webp"] {
+.image_container .img-contain {
     object-fit: contain; /* Ensure the full Sparky image is displayed without cropping */
  }
 
 
- /* displaying different hands*/
-.markRest { 
-    color: silver; /* puts all the text that of the hand that is not selected in silver */
+ .container-fluid{
+    display:none;    
  }
- .markMary {
-    color: black;
-}
-.markPercy{
-    color: black;
+ .container-fluid.active{
+    display:block;
+ }
+
+ /* displaying different hands*/
+.unmarkText { 
+    color: rgb(123, 123, 123); /* puts all the text that of the hand that is not selected in silver */
+ }
+ .markText {
+    color: #e0e0e0;
 }
 
 /* the style of the footer with the license */
@@ -119,10 +127,20 @@ p {
     text-align: center;
  }
 
+ .lic {
+    font-size: small;
+    font-style: italic;
+ }
+
+ #stats ul li span {
+    color: #6baf3d;
+    font-weight: bold;
+ }
+
  /* frankenstein theme */
 @font-face {
     font-family: "Frankenfont";
-    src: url("frankenwiniefont.ttf") format("opentype");
+    src: url("fonts/frankenwiniefont.ttf") format("opentype");
 }
 
 /* elements styled in f.font */
@@ -143,23 +161,33 @@ nav .navbar-brand {
     color: #e0e0e0; /* why does this do nothing? I can overwrite the font and font-size but not the textcolor? */
 }
 h1 {
-    font-size: 4em;
+    font-size: 3.5em;
     margin-top: .2em;
 }
 h2 {
     font-size: 3em;
+    margin: 0.5em 0;     /* under and above 0.5 extra margin. 0 margin left and right */
 }
 
 
 /* horizontal toolbar */
 #stats + .form-group {
-    background-color:var(--blood-red);
-    padding: .5em 0;
+    background-color: #6baf3d;;
+    padding: .5em 0; 
     text-align: center;
     margin-right: 15px;  /* align with width of the #text block */
     border-radius: 4px;
-    align-items: center; /* Vertical alignment, does not seem to work... */
+
 }
+
+/* checkbox as button */
+label.btn:has(input[type=checkbox]) {
+    margin-bottom:0; /*fix bootstrap 4.x alignment err*/
+    cursor: pointer;  /*shows clickable item*/
+}
+
+
+
 /*allow for more buttons on the horizontal toolbar*/
 #sel-hand {
     display:inline-block;

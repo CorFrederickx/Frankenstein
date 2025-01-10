@@ -12,23 +12,23 @@
                      <div class="row">
                          <div class="col">
                              <h4>About the manuscript page:</h4>
-                             <xsl:value-of select="//tei:sourceDesc"/>
-                             <xsl:value-of select="//tei:licence"/> <!-- You can change the way the metadata is visualised as well-->
+                             <p><xsl:value-of select="//tei:sourceDesc"/></p>
+                             <p class="lic"><xsl:value-of select="//tei:licence"/></p> <!-- You can change the way the metadata is visualised as well-->
                          </div>
                          <div class="col">
                             <h4> Meta data: </h4>
                             <ul> 
                                 <li>Total number of modifications: 
-                                    <xsl:value-of select="count(//tei:del|//tei:add)" /> <!-- Counts all the add and del elements, and puts it in a list item -->
+                                    <span><xsl:value-of select="count(//tei:del|//tei:add)" /></span> <!-- Counts all the add and del elements, and puts it in a list item -->
                                 </li>
                                 <li>Number of corrections by Percy Bysshe Shelley: 
-                                    <xsl:value-of select="count(//tei:del[@hand = '#PBS']|//tei:add[@hand = '#PBS' ])" />
+                                    <span><xsl:value-of select="count(//tei:del[@hand = '#PBS']|//tei:add[@hand = '#PBS' ])" /></span>
                                 </li>
                                 <li>Number of corrections by Mary Shelley: 
-                                    <xsl:value-of select="count(//tei:del[@hand = '#MWS']|//tei:add[@hand = '#MWS' ])" />
+                                    <span><xsl:value-of select="count(//tei:del[@hand = '#MWS']|//tei:add[@hand = '#MWS' ])" /></span>
                                 </li>
                                 <li>Number of words on the manuscript page:
-                                    <xsl:call-template name="Wordcount"/> <!-- calls the wordcount template, see below-->
+                                    <span><xsl:call-template name="Wordcount"/></span> <!-- calls the wordcount template, see below-->
                                 </li>
                             </ul>
                         </div>

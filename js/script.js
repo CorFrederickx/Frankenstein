@@ -1,22 +1,48 @@
+const urlParams = new URLSearchParams(location.search);
+const folio = urlParams.get('folio');
+const pageN = urlParams.get('page');
 
+console.log("*******", folio, pageN);
 
-let tei = document.getElementById("folio"); // wat gebeurt er hier nu weer?
-if (tei==null) {
-    //aha, this is the home page
-    buildFolioTable();
-    stop;
-}
+if (folio == null) {
+      //aha, this is the home page
+        buildFolioTable();
+        stop;
+}  else {
+      //make the page content visible, and hide the index page.
+      const divs = document.querySelectorAll('.container-fluid');
+      divs[0].classList.remove('active');
+      divs[1].classList.add('active');
+
+      //render content based on the folio number
+
+      document.getElementById('folio').innerText = folio; // change the folioname
+      let folio_xml = `xml/${folio}.xml`; // convert the folio name to the xml filename
+      console.log(folio_xml);
+      documentLoader(folio_xml);
+      statsLoader(folio_xml); // calls the function that renders the metadata
+    
+      loadMiradorViewer(Number(pageN));
+
+      navigationbuttons(folio) // call the function that enables the previous and next buttons
+
+    }
 
 // Declare variables for getting the xml file for the XSL transformation (folio_xml) and to load the image in IIIF on the page in question (number).
+//let tei = document.getElementById('folio');
 
-let tei_xml = tei.innerHTML; //only exists in the folio html pages, not on the index page. Problem
-let extension = ".xml";
-let folio_xml = tei_xml.concat(extension);
-let page = document.getElementById("page");
-let pageN = page.innerHTML;
-let number = Number(pageN);
+//let tei_xml = tei.innerHTML; //only exists in the folio html pages, not on the index page. Problem
+//let extension = ".xml";
+//let folio_xml = tei_xml.concat(extension);
+//let page = document.getElementById("page"); Not needed anymore, see above
+//let pageN = page.innerHTML;
+//let number = Number(pageN);
 
 // Loading the IIIF manifest
+function loadMiradorViewer (number) {
+
+  console.log(number)
+
 var mirador = Mirador.viewer({
   "id": "my-mirador",
   "manifests": {
@@ -50,14 +76,15 @@ var mirador = Mirador.viewer({
     }
   ]
 });
+}
 
 
 // function to transform the text encoded in TEI with the xsl stylesheet "Frankenstein_text.xsl", this will apply the templates and output the text in the html <div id="text">
-function documentLoader() {
+function documentLoader(folio_xml) {
 
     Promise.all([
       fetch(folio_xml).then(response => response.text()),
-      fetch("Frankenstein_text.xsl").then(response => response.text())
+      fetch("../xsl/Frankenstein_text.xsl").then(response => response.text())
     ])
     .then(function ([xmlString, xslString]) {
       var parser = new DOMParser();
@@ -78,11 +105,11 @@ function documentLoader() {
   }
   
 // function to transform the metadate encoded in teiHeader with the xsl stylesheet "Frankenstein_meta.xsl", this will apply the templates and output the text in the html <div id="stats">
-  function statsLoader() {
+  function statsLoader(folio_xml) {
 
     Promise.all([
       fetch(folio_xml).then(response => response.text()),
-      fetch("Frankenstein_meta.xsl").then(response => response.text())
+      fetch("../xsl/Frankenstein_meta.xsl").then(response => response.text())
     ])
     .then(function ([xmlString, xslString]) {
       var parser = new DOMParser();
@@ -103,8 +130,8 @@ function documentLoader() {
   }
 
   // Initial document load
-  documentLoader();
-  statsLoader();
+  //documentLoader();
+  //statsLoader();
   
   // problems with select hand function
   // "JavaScript will not correctly select elements with the class name #MWS or #PBS because these are invalid class names."
@@ -123,21 +150,31 @@ function documentLoader() {
   //write an forEach() method that shows all the text written and modified by both hands (in black?). The forEach() method of Array instances executes a provided function once for each array element.
 
     if (event.target.value == 'both') {
-    textContainer.classList.remove("markRest");
-    PercyArray.forEach((element) => element.classList.remove("markPercy"));
-    MaryArray.forEach((element) => element.classList.remove("markMary"));
+      textContainer.classList.remove("unmarkText");
+      PercyArray.forEach((element) => element.classList.remove("markText", "unmarkText"));
+      MaryArray.forEach((element) => element.classList.remove("markText", "unmarkText"));
 
     } else if (event.target.value == 'Mary') {
-     //write an forEach() method that shows all the text written and modified by Mary in a different color (or highlight it) and the text by Percy in black. 
-     textContainer.classList.add("markRest");
-     PercyArray.forEach((element) => element.classList.remove("markPercy"));
-     MaryArray.forEach((element) => element.classList.add("markMary"));
+      //write an forEach() method that shows all the text written and modified by Mary in a different color (or highlight it) and the text by Percy in black. 
+      textContainer.classList.add("unmarkText");
+      //remove classes from possible previous selection
+      MaryArray.forEach((element) => element.classList.remove("unmarkText")); //Mary markeren
+      PercyArray.forEach((element) => element.classList.remove("markText")); // Percy onmarkeren
+
+      // what you need to highlight Mary and unmark Percy
+      MaryArray.forEach((element) => element.classList.add("markText")); //Mary markeren
+      PercyArray.forEach((element) => element.classList.add("unmarkText")); // Percy onmarkeren
 
     } else {
-     //write an forEach() method that shows all the text written and modified by Percy in a different color (or highlight it) and the text by Mary in black.
-     textContainer.classList.add("markRest");
-     PercyArray.forEach((element) => element.classList.add("markPercy"));
-     MaryArray.forEach((element) => element.classList.remove("markMary"));
+      //write an forEach() method that shows all the text written and modified by Percy in a different color (or highlight it) and the text by Mary in black.
+      textContainer.classList.add("unmarkText");
+      //remove classes from possible previous selection
+      PercyArray.forEach((element) => element.classList.remove("unmarkText"));
+      MaryArray.forEach((element) => element.classList.remove("markText"));
+
+      // what you need to highlight Mary and unmark Percy
+      PercyArray.forEach((element) => element.classList.add("markText")); //Percy markeren
+      MaryArray.forEach((element) => element.classList.add("unmarkText")); // Mary onmarkeren
 
     }
   }
@@ -177,48 +214,50 @@ function buildFolioTable() {
 }
 
 // function to create previous and next buttons:
+function navigationbuttons(folio) {
 
-// Define the list of pages
-const pages = [
-  { name: "21r", link: "21r.html"},
-  { name: "21v", link: "21v.html"},
-  { name: "22r", link: "22r.html"},
-  { name: "22v", link: "22v.html"},
-  { name: "23r", link: "23r.html"},
-  { name: "23v", link: "23v.html"},
-  { name: "24r", link: "24r.html"},
-  { name: "24v", link: "24v.html"},
-  { name: "25r", link: "25r.html"},
-  { name: "25v", link: "25v.html"},
-];
+  // Define the list of pages
+  const pages = [
+    { name: "21r", link: "index.html?folio=21r&page=44" },
+    { name: "21v", link: "index.html?folio=21v&page=45" },
+    { name: "22r", link: "index.html?folio=22r&page=46" },
+    { name: "22v", link: "index.html?folio=22v&page=47" },
+    { name: "23r", link: "index.html?folio=23r&page=47" },
+    { name: "23v", link: "index.html?folio=23v&page=49" },
+    { name: "24r", link: "index.html?folio=24r&page=49" },
+    { name: "24v", link: "index.html?folio=24v&page=51" },
+    { name: "25r", link: "index.html?folio=25r&page=52" },
+    { name: "25v", link: "index.html?folio=25v&page=53" },
+  ];
 
-// Identify the current page from the URL
-const currentPage = window.location.pathname.split('/').pop(); // Extracts the last segment from the current URL path (the file name)
-const currentIndex = pages.findIndex(page => page.link === currentPage); // Iterates over the pages array to find the first element that satisfies the condition, namely that link and the extracted currentpage are the same
+  // Identify the current page from the URL
+  //const currentPage = window.location.pathname.split('/').pop(); // Extracts the last segment from the current URL path (the file name)
+  const currentIndex = pages.findIndex(page => page.name === folio); // Iterates over the pages array to find the first element that satisfies the condition, namely that link and the extracted currentpage are the same
 
-// Determine Previous and Next pages (and make sure there even are previous and next pages)
-const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : null;
-const nextPage = currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;
+  // Determine Previous and Next pages (and make sure there even are previous and next pages)
+  const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : null;
+  const nextPage = currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;
 
-// Get the navigation elements
-const prevLink = document.getElementById("prevLink");
-const nextLink = document.getElementById("nextLink");
+  // Get the navigation elements
+  const prevLink = document.getElementById("prevLink");
+  const nextLink = document.getElementById("nextLink");
 
-// Update "Previous" link
-if (prevPage) {
-  prevLink.href = prevPage.link; // Set the link
-  prevLink.classList.remove("disabled"); // Ensure it's clickable
-} else {
-  prevLink.href = "#"; // Prevent navigation if no previous page
-  prevLink.classList.add("disabled"); // Add a disabled style if needed
-}
+  // Update "Previous" link
+  if (prevPage) {
+    prevLink.href = prevPage.link; // Set the link
+    prevLink.classList.remove("disabled"); // Ensure it's clickable
+  } else {
+    prevLink.href = "#"; // Prevent navigation if no previous page
+    prevLink.classList.add("disabled"); // Add a disabled style if needed
+  }
 
-// Update "Next" link
-if (nextPage) {
-  nextLink.href = nextPage.link; // Set the link
-  nextLink.classList.remove("disabled"); // Ensure it's clickable
-} else {
-  nextLink.href = "#"; // Prevent navigation if no next page
-  nextLink.classList.add("disabled"); // Add a disabled style if needed
+  // Update "Next" link
+  if (nextPage) {
+    nextLink.href = nextPage.link; // Set the link
+    nextLink.classList.remove("disabled"); // Ensure it's clickable
+  } else {
+    nextLink.href = "#"; // Prevent navigation if no next page
+    nextLink.classList.add("disabled"); // Add a disabled style if needed
+  }
 }
 
