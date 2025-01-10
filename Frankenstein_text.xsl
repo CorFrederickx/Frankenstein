@@ -39,10 +39,24 @@
         </div> 
     </xsl:template>
     
+    <!-- which text is attributed to who-->
+
+    <!-- all text by default attributed to #MWS -->
     <xsl:template match="tei:div">
         <div class="#MWS"><xsl:apply-templates/></div>
     </xsl:template>
     
+    <!-- override default attribution when specified otherwise -->
+
+    <xsl:template match="tei:add">
+        <span>
+            <xsl:attribute name="class">
+                <xsl:value-of select="@hand"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+
     <xsl:template match="tei:del">
         <del>
             <xsl:attribute name="class">
@@ -51,18 +65,21 @@
             <xsl:apply-templates/>
         </del>
     </xsl:template>
+    
+    <!-- only the additions that are of the hand of #PBS are not recognised. What's the problem???  -->
 
-    <!--important to specify this class to make the highlighting function work-->
-    <xsl:template match="tei:add[@hand='#PBS']">
+    <!-- xsl:template match="tei:add[@hand='#PBS']">
     <span class="#PBS">
         <xsl:apply-templates/>
     </span>
-    </xsl:template>
+    </xsl:template>-->
     
+    <!-- indicating paragraphs-->
     <xsl:template match="tei:p">
         <p><xsl:apply-templates/></p>
     </xsl:template>
 
+    <!-- indicating text that should be put in the margin-->
     <xsl:template match="tei:add[@place = 'marginleft']">
         <span class="marginAdd">
             <xsl:apply-templates/>
@@ -83,23 +100,27 @@
         <br/>
     </xsl:template>
 
+    <!--superscript-->
     <xsl:template match="tei:hi[@rend = 'sup']">
         <sup>
             <xsl:apply-templates/>
         </sup>
     </xsl:template>
 
+    <!--underlined-->
     <xsl:template match="tei:hi[@rend = 'u']"> 
         <u>
             <xsl:apply-templates/>
         </u>
     </xsl:template>
 
-    <xsl:template match="tei:add[@rend = 'overwritten']"> <!-- hoe wil ik dit visualiseren? strikethrough html -->
+    <!-- how to visualise this?
+    <xsl:template match="tei:add[@rend = 'overwritten']"> 
         <u>
             <xsl:apply-templates/>
         </u>
     </xsl:template>
+    -->
 
     <!-- the circled page number on the manuscript-->
     <xsl:template match="tei:metamark[@function='pagenumber']">

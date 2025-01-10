@@ -1,15 +1,15 @@
-// Declare variables for getting the xml file for the XSL transformation (folio_xml) and to load the image in IIIF on the page in question (number).
 
 
-let tei = document.getElementById("folio");
-
+let tei = document.getElementById("folio"); // wat gebeurt er hier nu weer?
 if (tei==null) {
     //aha, this is the home page
     buildFolioTable();
-    stop();
+    stop;
 }
 
-let tei_xml = tei.innerHTML; //only exist in the folio html pages
+// Declare variables for getting the xml file for the XSL transformation (folio_xml) and to load the image in IIIF on the page in question (number).
+
+let tei_xml = tei.innerHTML; //only exists in the folio html pages, not on the index page. Problem
 let extension = ".xml";
 let folio_xml = tei_xml.concat(extension);
 let page = document.getElementById("page");
@@ -106,7 +106,10 @@ function documentLoader() {
   documentLoader();
   statsLoader();
   
-  
+  // problems with select hand function
+  // "JavaScript will not correctly select elements with the class name #MWS or #PBS because these are invalid class names."
+  // remove prefix? Will this solve anything?
+
   // Event listener for sel1 change
   // added an extra variable for all text
   function selectHand(event) {
@@ -138,10 +141,8 @@ function documentLoader() {
 
     }
   }
-// write another function that will toggle the display of the deletions by clicking on a button
-// EXTRA: write a function that will display the text as a reading text by clicking on a button or another dropdown list, meaning that all the deletions are removed and that the additions are shown inline (not in superscript)
 
-// I combined a classic for loop with a classlist and forEach... but it works and now I don't want to touch it.
+// write another function that will toggle the display of the deletions by clicking on a button, and a function that will display the text as reading text (combined into one)
 
 function deletionToggler() {
   // first get all the <del> elements in the document, and all the additions that are put in superscript
@@ -161,6 +162,7 @@ function deletionToggler() {
   }
 }
 
+// function to generate a table with the pages in this digital edition, based on the dropdown menu
 
 function buildFolioTable() {
   const folioTable = document.querySelector('.folio-table'); // finds the HTML element with the class .folio-table
@@ -175,7 +177,6 @@ function buildFolioTable() {
 }
 
 // function to create previous and next buttons:
-
 
 // Define the list of pages
 const pages = [

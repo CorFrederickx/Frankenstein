@@ -1,6 +1,24 @@
-body {
 
+body {
+   background-color: #1c1c1c;
+   color: #e0e0e0;
 }
+
+.folio-table th {
+    color: #e0e0e0; /* give the title of the table on the index page the same text color as the rest */
+}
+
+.navbar-dark .navbar-brand { /* making sure the title in the navigation bar has the same color as the rest of the text*/
+    color: #e0e0e0;
+}
+
+.dropdown-menu-dark { 
+    background-color: #343a40; /* making the drodown menu dark as well*/
+}
+.dropdown-menu-dark .dropdown-item:hover {
+    background-color: #495057; /* Slightly lighter grey when hovering over the dropdown menu */
+}
+
 .starter-template {
   padding: 40px 15px;
   text-align: center;
@@ -37,7 +55,10 @@ p {
     position: relative;
     top: -0.3em;
     font-size: smaller;
+    font-style: italic;
 }
+
+/* to bring supralinear text inline when toggling deletions and display the text as a reading text*/
 
 .supraAdd.show-normal {
     position: static;
@@ -45,7 +66,7 @@ p {
     font-size: inherit;
 }
 
-
+/* circled page number in top right corner */
 .page-number {
     position: absolute;
     top: 10px;
@@ -60,6 +81,7 @@ p {
     font-size: 14px;
 }
 
+/* arrangement of images on index page*/
 .image_container {
     display: flex; /* Use flexbox to arrange items in a row */
     justify-content: space-evenly; /* Center the images horizontally */
@@ -67,31 +89,25 @@ p {
 }
 
 .image_container img {
-    width: 400px; /* Set a fixed width for both images */
-    height: 489px; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensure the image fills its box if needed */
+    width: 400px;
+    height: 489px;
+    object-fit: cover;
 }
 
 .image_container img[src="Sparky_Frankenstein.webp"] {
     object-fit: contain; /* Ensure the full Sparky image is displayed without cropping */
  }
 
-.overwritten {}
 
-/*
-body:has(option[value="Mary"]:selected) [class="#MWS"] {
-    background-color: tomato;
-}
-*/
-
+ /* displaying different hands*/
 .markRest { 
-    color:silver; /* puts all the text that is not highlighted in silver */
+    color: silver; /* puts all the text that of the hand that is not selected in silver */
  }
  .markMary {
-    color: black
+    color: black;
 }
 .markPercy{
-    color: black
+    color: black;
 }
 
 /* the style of the footer with the license */
@@ -103,7 +119,6 @@ body:has(option[value="Mary"]:selected) [class="#MWS"] {
     text-align: center;
  }
 
-
  /* frankenstein theme */
 @font-face {
     font-family: "Frankenfont";
@@ -111,19 +126,21 @@ body:has(option[value="Mary"]:selected) [class="#MWS"] {
 }
 
 /* elements styled in f.font */
-h1, h2, h4,
+title, h1, h2, h4,
 nav .navbar-brand,
 .nav-item .dropdown-item,
 figcaption,
-.frankenstein,
-.page-number {
+.frankenstein {
+    color: #6baf3d; /* Frankenweenie green */
     font-family: 'Frankenfont', sans-serif;
     letter-spacing: 0.1em;
-    color: var(--blood-red) ;
-    text-shadow: var(--light-red) 1px 0 10px;
 }
+/*h1 {
+    text-shadow:#6baf3d 1px 0 10px; 
+} */
 nav .navbar-brand {
     font-size: 200%;
+    color: #e0e0e0; /* why does this do nothing? I can overwrite the font and font-size but not the textcolor? */
 }
 h1 {
     font-size: 4em;

@@ -16,6 +16,7 @@
                              <xsl:value-of select="//tei:licence"/> <!-- You can change the way the metadata is visualised as well-->
                          </div>
                          <div class="col">
+                            <h4> Meta data: </h4>
                             <ul> 
                                 <li>Total number of modifications: 
                                     <xsl:value-of select="count(//tei:del|//tei:add)" /> <!-- Counts all the add and del elements, and puts it in a list item -->
@@ -27,17 +28,17 @@
                                     <xsl:value-of select="count(//tei:del[@hand = '#MWS']|//tei:add[@hand = '#MWS' ])" />
                                 </li>
                                 <li>Number of words on the manuscript page:
-                                    <xsl:call-template name="Wordcount"/>
+                                    <xsl:call-template name="Wordcount"/> <!-- calls the wordcount template, see below-->
                                 </li>
                             </ul>
                         </div>
                      </div>
         <hr/>
     </xsl:template>
-    <xsl:template name="Wordcount">
+    <xsl:template name="Wordcount"> <!-- counts the numbers of characters, then subtracts length wihtout spaces from this. The resulting number of spaces is a good indication of the number of words.-->
         <xsl:for-each select="tei:text">
             <xsl:value-of select=
-                "string-length(normalize-space(.))
+                "string-length(normalize-space(.)) 
                 -
                 string-length(translate(normalize-space(.),' ','')) +1
                 "/>
