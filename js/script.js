@@ -34,6 +34,7 @@ function loadMiradorViewer (number) {
 
 var mirador = Mirador.viewer({
   "id": "my-mirador",
+  crossOrigin: "anonymous",
   "manifests": {
     "https://iiif.bodleian.ox.ac.uk/iiif/manifest/53fd0f29-d482-46e1-aa9d-37829b49987d.json": {
       provider: "Bodleian Library, University of Oxford"
@@ -73,7 +74,7 @@ function documentLoader(folio_xml) {
 
     Promise.all([
       fetch(folio_xml).then(response => response.text()),
-      fetch("/Frankenstein/xsl/Frankenstein_text.xsl").then(response => response.text())
+      fetch("/Frankenstein/xsl/Frankenstein_text.xsl").then(response => response.text()) // use an absolute path that includes the repository name, otherwise did not work on github pages
     ])
     .then(function ([xmlString, xslString]) {
       var parser = new DOMParser();
@@ -98,7 +99,7 @@ function documentLoader(folio_xml) {
 
     Promise.all([
       fetch(folio_xml).then(response => response.text()),
-      fetch("/Frankenstein/xsl/Frankenstein_meta.xsl").then(response => response.text())
+      fetch("/Frankenstein/xsl/Frankenstein_meta.xsl").then(response => response.text()) // use an absolute path that includes the repository name, otherwise did not work on github pages
     ])
     .then(function ([xmlString, xslString]) {
       var parser = new DOMParser();
