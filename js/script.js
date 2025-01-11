@@ -2,8 +2,6 @@ const urlParams = new URLSearchParams(location.search);
 const folio = urlParams.get('folio');
 const pageN = urlParams.get('page');
 
-console.log("*******", folio, pageN);
-
 if (folio == null) {
       //aha, this is the home page
         buildFolioTable();
@@ -14,29 +12,20 @@ if (folio == null) {
       divs[0].classList.remove('active');
       divs[1].classList.add('active');
 
-      //render content based on the folio number
+      //render content based on the folio number and page number
 
       document.getElementById('folio').innerText = folio; // change the folioname
       let folio_xml = `xml/${folio}.xml`; // convert the folio name to the xml filename
-      console.log(folio_xml);
-      documentLoader(folio_xml);
+
+      documentLoader(folio_xml); // calls the function that renders the text
+
       statsLoader(folio_xml); // calls the function that renders the metadata
     
-      loadMiradorViewer(Number(pageN));
+      loadMiradorViewer(Number(pageN)); // calls the funtion that loads the image in IIIF
 
       navigationbuttons(folio) // call the function that enables the previous and next buttons
 
     }
-
-// Declare variables for getting the xml file for the XSL transformation (folio_xml) and to load the image in IIIF on the page in question (number).
-//let tei = document.getElementById('folio');
-
-//let tei_xml = tei.innerHTML; //only exists in the folio html pages, not on the index page. Problem
-//let extension = ".xml";
-//let folio_xml = tei_xml.concat(extension);
-//let page = document.getElementById("page"); Not needed anymore, see above
-//let pageN = page.innerHTML;
-//let number = Number(pageN);
 
 // Loading the IIIF manifest
 function loadMiradorViewer (number) {
@@ -129,16 +118,9 @@ function documentLoader(folio_xml) {
     });
   }
 
-  // Initial document load
-  //documentLoader();
-  //statsLoader();
-  
-  // problems with select hand function
-  // "JavaScript will not correctly select elements with the class name #MWS or #PBS because these are invalid class names."
-  // remove prefix? Will this solve anything?
+ 
+  // function to highlight the selected hand
 
-  // Event listener for sel1 change
-  // added an extra variable for all text
   function selectHand(event) {
   var visible_mary = document.getElementsByClassName('#MWS');
   var visible_percy = document.getElementsByClassName('#PBS');
@@ -231,9 +213,8 @@ function navigationbuttons(folio) {
   ];
 
   // Identify the current page from the URL
-  //const currentPage = window.location.pathname.split('/').pop(); // Extracts the last segment from the current URL path (the file name)
-  const currentIndex = pages.findIndex(page => page.name === folio); // Iterates over the pages array to find the first element that satisfies the condition, namely that link and the extracted currentpage are the same
-
+  const currentIndex = pages.findIndex(page => page.name === folio);
+  
   // Determine Previous and Next pages (and make sure there even are previous and next pages)
   const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : null;
   const nextPage = currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;

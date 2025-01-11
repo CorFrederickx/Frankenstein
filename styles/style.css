@@ -13,10 +13,13 @@ body {
 }
 
 .dropdown-menu-dark { 
-    background-color: #343a40; /* making the drodown menu dark as well*/
+    background-color: #343a40; /* fix bootstrap 4.3 error: making the drodown menu dark as well*/
 }
 .dropdown-menu-dark .dropdown-item:hover {
     background-color: #495057; /* Slightly lighter grey when hovering over the dropdown menu */
+}
+a, a:hover, a:active { /* make all links frankenweenie green */
+    color:#6baf3d;
 }
 
 .starter-template {
@@ -26,10 +29,6 @@ body {
 
 img {
     max-width: 100%;
-}
-
-a, a:hover, a:active { /* make all links frankenweenie green */
-    color:#6baf3d;
 }
 
 p {
@@ -54,6 +53,7 @@ p {
     display: none !important;
 }
 
+/* style of supralinear additions */
 .supraAdd {
     vertical-align: baseline;
     position: relative;
@@ -63,7 +63,6 @@ p {
 }
 
 /* to bring supralinear text inline when toggling deletions and display the text as a reading text*/
-
 .supraAdd.show-normal {
     position: static;
     font-style: normal;
@@ -103,6 +102,8 @@ p {
  }
 
 
+ /* only display the container-fluids that are active, necessary to display either indexpage or foliopage, see beginning script.js */
+
  .container-fluid{
     display:none;    
  }
@@ -112,10 +113,10 @@ p {
 
  /* displaying different hands*/
 .unmarkText { 
-    color: rgb(123, 123, 123); /* puts all the text that of the hand that is not selected in silver */
+    color: rgb(123, 123, 123); /* puts all the text that of the hand that is not selected in this darker color */
  }
  .markText {
-    color: #e0e0e0;
+    color: #e0e0e0; /* same color as all other text */
 }
 
 /* the style of the footer with the license */
@@ -127,23 +128,24 @@ p {
     text-align: center;
  }
 
+ /* style of the licence mentioned in info on the manuscript page */
  .lic {
     font-size: small;
     font-style: italic;
  }
 
  #stats ul li span {
-    color: #6baf3d;
+    color: #6baf3d; /* make all calculated metadata (number of modifications etc.) frankenweenie green */
     font-weight: bold;
  }
 
- /* frankenstein theme */
+ /* frankenstein font */
 @font-face {
     font-family: "Frankenfont";
     src: url("fonts/frankenwiniefont.ttf") format("opentype");
 }
 
-/* elements styled in f.font */
+/* elements styled in frankenstein font */
 title, h1, h2, h4,
 nav .navbar-brand,
 .nav-item .dropdown-item,
@@ -153,13 +155,11 @@ figcaption,
     font-family: 'Frankenfont', sans-serif;
     letter-spacing: 0.1em;
 }
-/*h1 {
-    text-shadow:#6baf3d 1px 0 10px; 
-} */
+
 nav .navbar-brand {
     font-size: 200%;
-    color: #e0e0e0; /* why does this do nothing? I can overwrite the font and font-size but not the textcolor? */
 }
+
 h1 {
     font-size: 3.5em;
     margin-top: .2em;
@@ -170,26 +170,23 @@ h2 {
 }
 
 
-/* horizontal toolbar */
+/* horizontal toolbar with selecthand / deletiontoggler / previous and next buttons */
 #stats + .form-group {
     background-color: #6baf3d;;
     padding: .5em 0; 
     text-align: center;
-    margin-right: 15px;  /* align with width of the #text block */
+    margin-right: 15px;  /* align with width of the text block */
     border-radius: 4px;
-
 }
-
-/* checkbox as button */
-label.btn:has(input[type=checkbox]) {
-    margin-bottom:0; /*fix bootstrap 4.x alignment err*/
-    cursor: pointer;  /*shows clickable item*/
-}
-
-
 
 /*allow for more buttons on the horizontal toolbar*/
 #sel-hand {
     display:inline-block;
     width:auto;
+}
+
+/* checkbox as button */
+label.btn:has(input[type=checkbox]) {
+    margin-bottom:0; /*fix bootstrap 4.3 alignment error*/
+    cursor: pointer;  /*show as clickable item*/
 }

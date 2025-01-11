@@ -13,7 +13,7 @@
                          <div class="col">
                              <h4>About the manuscript page:</h4>
                              <p><xsl:value-of select="//tei:sourceDesc"/></p>
-                             <p class="lic"><xsl:value-of select="//tei:licence"/></p> <!-- You can change the way the metadata is visualised as well-->
+                             <p class="lic"><xsl:value-of select="//tei:licence"/></p> <!-- You can change the way the metadata is visualised as well: class for licence to separate it and make it smaller using css-->
                          </div>
                          <div class="col">
                             <h4> Meta data: </h4>

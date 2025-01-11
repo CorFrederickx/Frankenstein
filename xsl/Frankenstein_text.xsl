@@ -65,14 +65,7 @@
             <xsl:apply-templates/>
         </del>
     </xsl:template>
-    
-    <!-- only the additions that are of the hand of #PBS are not recognised. What's the problem???  -->
 
-    <!-- xsl:template match="tei:add[@hand='#PBS']">
-    <span class="#PBS">
-        <xsl:apply-templates/>
-    </span>
-    </xsl:template>-->
     
     <!-- indicating paragraphs-->
     <xsl:template match="tei:p">
@@ -89,7 +82,7 @@
     
     <!-- all the supralinear additions are given in a span with the class supraAdd, make sure to put this class in superscript in the CSS file, -->
     <xsl:template match="tei:add[@place = 'supralinear']">
-        <span class="supraAdd {@hand}">
+        <span class="supraAdd {@hand}"> <!--make sure also the hand is a class, necessary for my selecthand function-->
              <xsl:apply-templates/>
         </span>
     </xsl:template>
@@ -113,14 +106,6 @@
             <xsl:apply-templates/>
         </u>
     </xsl:template>
-
-    <!-- how to visualise this?
-    <xsl:template match="tei:add[@rend = 'overwritten']"> 
-        <u>
-            <xsl:apply-templates/>
-        </u>
-    </xsl:template>
-    -->
 
     <!-- the circled page number on the manuscript-->
     <xsl:template match="tei:metamark[@function='pagenumber']">

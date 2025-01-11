@@ -27,7 +27,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Pages
             </a>
-            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink"> <!--dropdown-menu-dark not supported in bootstrap 4.3, made own CSS class-->
+            <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink"> <!--dropdown-menu-dark not supported in bootstrap 4.3, made my own CSS class-->
               <a class="dropdown-item" href="index.html?folio=21r&page=44">21r</a>
               <a class="dropdown-item" href="index.html?folio=21v&page=45">21v</a>
               <a class="dropdown-item" href="index.html?folio=22r&page=46">22r</a>
@@ -43,6 +43,7 @@
         </ul>
       </div>
     </nav>
+
     <!--this is the index page-->
     <div class="container-fluid active">
       <h2>FRANKENSTEIN - Mary Wollstonecraft Shelley</h2>
@@ -85,15 +86,14 @@
               <figcaption>Percy Bysshe Shelley</figcaption>
             </div>
             <div class="col">
-              <img class="img-contain" src="images/Sparky_Frankenstein.webp" alt="The dog Sparky"></img>
+              <img class="img-contain" src="images/Sparky_Frankenstein.webp" alt="The dog Sparky"></img>  <!-- img-contain to make sure image is not cropped, see CSS -->
               <figcaption>And their dog Sparky</figcaption>
             </div>
           </div>
         </div>
       </div>
-
-      
     </div>
+
     <!-- let's try to change the code so that we would not need separate HTML files for each page -->
     <div class="container-fluid">
       <h1>Frankenstein Volume I Draft in Chapter Sequence</h1>
@@ -108,7 +108,7 @@
           </select>
 
           <label class="btn btn-light">
-            <input type="checkbox" onchange="deletionToggler()"> Toggle Deletions
+            <input type="checkbox" onchange="deletionToggler()"> Toggle Deletions 
           </label>
 
           <a class="btn btn-light" id="prevLink" > &lt; </a> <!--&lt and &gt show the buttons as < and > for previous and next-->
@@ -122,7 +122,7 @@
       </div>
     </div>
 
-    <!-- the licence note-->
+    <!-- the licence note at the bottom-->
     <footer class="license-note">
       <p>
         This edition is licensed under a 
@@ -130,6 +130,7 @@
           Creative Commons Attribution-NonCommercial 4.0 International License
         </a>.
         <br/>
+        The images of Mary Wollstonecraft Shelley and Percy Bysshe Shelley are in the public domain.
         <br/>
         The <a href="https://www.dafont.com/frankenwiniefont.font">frankenwinie font</a> is a is an amateur design and is free for personal use.
         <br/>
